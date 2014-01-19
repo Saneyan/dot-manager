@@ -1,0 +1,15 @@
+#!/bin/sh
+
+dotfiles=(
+  "zsh.d"
+  "xmonad"
+  "emacs.d"
+  "vim"
+  "vimrc"
+  "tmux.conf"
+  "Xdefaults"
+  "Xresources"
+  "xinitrc"
+)
+
+files=()
