@@ -1,2 +1,4 @@
 config/dotignore
 config/dottype
+release/*
+!release/.gitkeep
