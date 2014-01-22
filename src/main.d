@@ -48,33 +48,34 @@ int main(string[] args)
   string[] argv = args.length <= 1 ? args ~ ["-h"] : args;
 
   try {
+    const string cmd = argv[1];
+    string[] argvs = argv[1..$];
+
+    if (cmd == "link") {
+      import link;
+      linkMain(argvs);
+    } else if (cmd == "repo") {
+      import repo;
+      repoMain(argvs);
+    } else if (cmd == "type") {
+      import type;
+      typeMain(argvs);
+    }
+
     getopt(
       argv,
       std.getopt.config.caseSensitive,
-      std.getopt.config.noPassThrough,
+      std.getopt.config.passThrough,
       "l|list-files", &listFiles,
       "h|help", &printUsage);
+
+    stderr.writef("dmgr: '%s' is not a dmgr command. ", cmd);
+    stderr.writeln(emsg);
   }
   catch (Exception e) {
     stderr.writef("dmgr: %s ", e.msg);
     stderr.writeln(emsg);
     exit(1);
-  }
-
-  const string cmd = argv[1];
-
-  if (cmd == "link") {
-    import link;
-    linkMain(argv);
-  } else if (cmd == "repo") {
-    import repo;
-    repoMain(argv);
-  } else if (cmd == "type") {
-    import type;
-    typeMain(argv);
-  } else {
-    stderr.writef("dmgr: '%s' is not a dmgr command. ", cmd);
-    stderr.writeln(emsg);
   }
 
   return 1;
