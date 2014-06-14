@@ -1,0 +1,10 @@
+{
+  "name": "Dot Manager",
+  "version": "0.0.1",
+  "description": "Dot Manager manages your configuration files",
+  "copyright": "Copyright (c) 2014, Saneyuki Tadokoro",
+  "authors": [
+    "Saneyuki Tadokoro"
+  ],
+  "dependencies": {}
+}

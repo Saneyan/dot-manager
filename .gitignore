@@ -1,4 +1,4 @@
 config/dotignore
 config/dottype
-release/*
-!release/.gitkeep
+public/*
+!public/.gitkeep
