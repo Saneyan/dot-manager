@@ -1,17 +1,21 @@
 /**
  * Dot Manager (dmgr)
  *
- * @author    Saneyuki Tadokoro <saneyan@mail.gfunction.com>
- * @copyright Copyright (c) 2014, Saneyuki Tadokoro
- * @module    AppHelp
+ * Authors:   Saneyuki Tadokoro <saneyan@mail.gfunction.com>
+ * Copyright: (c) 2014, Saneyuki Tadokoro
  */
 
-module AppHelp;
-import Help;
+module help.appHelp;
 
-class AppHelpUsage : HelpUsage
+import help.help;
+
+public HelpUsage usage;
+
+static this()
 {
-  string[string] subCommands = [
+  .usage = new HelpUsage();
+
+  .usage.commands = [
     "enable"   : "Enable extensions",
     "disable"  : "Disable extensions",
     "edit"     : "Edit a configuration file",
@@ -20,7 +24,7 @@ class AppHelpUsage : HelpUsage
     "update"   : "Update extensions"
   ];
 
-  string[string] options = [
+  .usage.options = [
     "-l | --list-files": "List available extensions",
     "-h | --help"      : "Show help"
   ];
