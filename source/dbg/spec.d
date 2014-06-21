@@ -8,7 +8,7 @@ module dbg.spec;
 
 import std.stdio;
 import std.conv;
-import console.color;
+import console.font;
 
 private:
 
@@ -101,14 +101,12 @@ class Spec
   {
     lambda(&this.describe);
 
-    if (_failure == 0) {
-      writef("%s%s[ %d of %d tests failed ]%s%s", font.bold, palette.red, _failure, _count, font.plain, palette.red);
-      //write(font.bold ~ palette.red ~ "[ " ~ to!string(_failure) ~ " of " ~ to!string(_count) ~ " tests failed ] " ~ font.plain ~ palette.red);
-    } else {
-      write(font.bold ~ palette.green ~ "[ " ~ to!string(_count) ~ " tests passed ] " ~ font.plain ~ palette.green);
-    }
+    if (_failure > 0)
+      writef("%s%s[ %d of %d tests failed ] %s%s", style.bold, color.red, _failure, _count, style.plain, color.red);
+    else
+      writef("%s[ %d tests passed ] %s%s", color.green, _count, style.plain, color.green);
 
-    writeln(_mod ~ " (" ~ _file ~ ")" ~ palette.black);
+    writeln(_mod ~ " (" ~ _file ~ ")" ~ color.black);
 
     //☓✓
   }
