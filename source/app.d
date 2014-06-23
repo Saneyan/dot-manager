@@ -9,8 +9,9 @@ module app;
 
 import help.appHelp;
 
+pragma(msg, "Using: " ~ __MODULE__ ~ " (" ~ __FILE__ ~ ")");
+
 int main(string[] args)
 {
-  //usage.print;
   return 0;
 }

@@ -6,17 +6,20 @@
  */
 module dbg.spec;
 
-import std.stdio;
 import std.conv;
+import core.exception;
+import console.stdio;
 import console.font;
+
+pragma(msg, "Using: " ~ __MODULE__ ~ " (" ~ __FILE__ ~ ")");
 
 private:
 
 alias void delegate() ItLambda;
 alias void delegate(void delegate(string, ItLambda)) DescribeLambda;
 alias void delegate(void delegate(string, DescribeLambda)) TestLambda;
-// TestLambda type is same to:
-// void delegate(void delegate(string, void delegate(void delegate(string, void delegate()))));
+
+bool _started;
 
 public:
 
@@ -58,10 +61,14 @@ class Spec
   {
     _count++;
 
+    logln!(color.green)(indent!(3)(desc));
+
     try {
       lambda();
-    } catch (Exception e) {
+    } catch (AssertError e) {
+      // Increment failure count and report an error message.
       _failure++;
+      logfln!(color.red)(indent!(3)("(error) %s\n"), e.msg);
     }
   }
 
@@ -74,6 +81,7 @@ class Spec
    */
   void describe(string desc, DescribeLambda lambda)
   {
+    logln!(color.green)(indent!(1)(desc));
     lambda(&this.it);
   }
 
@@ -99,15 +107,19 @@ class Spec
    */
   void test(TestLambda lambda)
   {
+    if (!_started) {
+      logln!(color.black)("\nStarting to test...\n");
+      _started = true;
+    }
+
+    logfln!(color.blue)("> %s (%s)\n", _mod, _file,);
+
     lambda(&this.describe);
 
+    // If an error occured, another test must be continued to find out whole process.
     if (_failure > 0)
-      writef("%s%s[ %d of %d tests failed ] %s%s", style.bold, color.red, _failure, _count, style.plain, color.red);
+      logfln!(style.bold, color.red)("\n × [ %d of %d tests failed ]\n", _failure, _count);
     else
-      writef("%s[ %d tests passed ] %s%s", color.green, _count, style.plain, color.green);
-
-    writeln(_mod ~ " (" ~ _file ~ ")" ~ color.black);
-
-    //☓✓
+      logfln!(color.green)("\n ✓ [ %d tests passed ]\n", _count);
   }
 }

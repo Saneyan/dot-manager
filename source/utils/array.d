@@ -10,6 +10,8 @@ module utils.array;
 import std.stdio;
 import dbg.spec;
 
+pragma(msg, "Using: " ~ __MODULE__ ~ " (" ~ __FILE__ ~ ")");
+
 /**
  * Assign a key and value of each associative array element to an
  * anonymous function.

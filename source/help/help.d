@@ -16,6 +16,8 @@ import std.stdio;
 import utils.array;
 import dbg.spec;
 
+pragma(msg, "Using: " ~ __MODULE__ ~ " (" ~ __FILE__ ~ ")");
+
 private:
 
 alias Tuple!(string, string[string]) Sect;

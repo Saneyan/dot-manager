@@ -9,13 +9,15 @@ module help.appHelp;
 
 import help.help;
 
+pragma(msg, "Using: " ~ __MODULE__ ~ " (" ~ __FILE__ ~ ")");
+
 public HelpUsage usage;
 
 static this()
 {
-  .usage = new HelpUsage();
+  usage = new HelpUsage();
 
-  .usage.commands = [
+  usage.commands = [
     "enable"   : "Enable extensions",
     "disable"  : "Disable extensions",
     "edit"     : "Edit a configuration file",
@@ -24,7 +26,7 @@ static this()
     "update"   : "Update extensions"
   ];
 
-  .usage.options = [
+  usage.options = [
     "-l | --list-files": "List available extensions",
     "-h | --help"      : "Show help"
   ];
